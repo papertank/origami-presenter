@@ -1,4 +1,8 @@
-<?php namespace Origami\Presenter;
+<?php 
+
+namespace Origami\Presenter;
+
+use Illuminate\Support\Str;
 
 abstract class Presenter {
 
@@ -7,7 +11,7 @@ abstract class Presenter {
     /**
      * @param $entity
      */
-    function __construct(PresentableInterface $entity)
+    function __construct($entity)
     {
         $this->entity = $entity;
     }
@@ -20,7 +24,7 @@ abstract class Presenter {
      */
     public function __get($property)
     {
-        $camel = camel_case($property);
+        $camel = Str::camel($property);
 
         if ( method_exists($this, $camel) ) {
             $value = $this->{$camel}();
